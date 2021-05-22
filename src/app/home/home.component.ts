@@ -12,7 +12,7 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
   private token = '';
-  private errorMsg = '';
+  public errorMsg = '';
   private Lang = 'Ar';
   private isSuccess = false;
   public pwError = false;
