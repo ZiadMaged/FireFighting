@@ -1,0 +1,174 @@
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+
+
+<div class="main-content" style="padding-top: 16px;" *ngIf="Answer">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="message-wrap">
+                        <div class="msg-wrap">
+                            <div class="alert alert-info msg-date" style="background-color:  #999;color: whitesmoke;">
+                                <strong>Answer</strong>
+                            </div>
+                            <div class="media msg">
+                                <div class="container-fluid">
+                                    
+                                        <div class="col-md-12" [style.float]=" getFloatCard(Answer['AgentID'])">
+                                            <div class="card" style="background-color: rgb(250, 250, 250);">
+                                                <div class="msg" >
+                                                    <a [class]=" getPullCard(Answer['AgentID']) ">
+                                                        <img class="media-object" data-src="holder.js/64x64" alt="64x64"
+                                                            style="width: 40px; height: 40px;"
+                                                            [src]=" getPicture(Answer['AgentID']) ">
+                                                    </a>
+                                                    <div class="media-body">
+                                                        <div class="container-fluid">
+                                                            <small class="time"
+                                                                [class]=" getPullClock(Answer['AgentID']) ">
+                                                                <i class="fa fa-clock-o"></i>
+                                                                {{ getReplyTime(Answer['CreatedOn']) }}</small>
+                                                            <h5 class="media-heading"
+                                                                [class]="getPullCard(Answer['AgentID'])"><i
+                                                                    class="fa fa-check-circle "
+                                                                    [class]="getPullClock(Answer['AgentID'])"
+                                                                    *ngIf="Answer['AgentID']"></i>{{ Answer['Name'] }}
+                                                            </h5>
+                                                        </div>
+                                                        <div class="container-fluid">
+                                                            <p class="pull-left col-md-11">{{ Answer['Answer'] }}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                    <hr style="margin: 0px;">
+                                                    <div class="header" style="padding-top: 0px;">
+
+                                                        <small class="text-muted"><b>Status</b> :
+                                                            {{Answer['Status']}}</small>
+
+                                                        <div class="text-right col-md-2" style=" float: right;"
+                                                            *ngFor='let status of StatusList'>
+                                                            <small><a routerLink="{{href}}"
+                                                                    (click)='updateStatus(status["StatusID"])'>{{status['Status']}}
+                                                                </a></small>
+                                                        </div>
+
+
+                                                    </div>
+
+                                            </div>
+                                        </div>
+                                    
+
+                                </div>
+                            </div>
+                            <div class="alert alert-info msg-date" style="background-color:  #999;color: whitesmoke;">
+                                <strong>Replies</strong>
+                            </div>
+
+                            <div class="media msg" *ngFor="let reply of Values">
+
+                                    <div class="container-fluid">
+                                       
+                                            <div class="col-md-11" [style.float]=" getFloatCard(reply['AgentID']) ">
+                                                <div class="card">
+                                                    <div class="msg"
+                                                        style="background-color: rgb(250, 250, 250);">
+                                                        
+                                                        <a [class]=" getPullCard(reply['AgentID']) ">
+                                                            <img class="media-object" data-src="holder.js/64x64"
+                                                                alt="64x64" style="width: 40px; height: 40px;"
+                                                                [src]=" getPicture(reply['AgentID']) ">
+                                                        </a>
+                                                    
+                                                        <div class="media-body">
+                                                            <div class="container-fluid">
+                                                                <small class='time'
+                                                                    [class]=" getPullClock(reply['AgentID']) "><i
+                                                                        class="fa fa-clock-o"></i>
+                                                                        {{ getReplyTime(reply['CreatedOn']) }}</small>
+                                                                <h5 class="media-heading"
+                                                                    [class]="getPullCard(reply['AgentID'])">
+                                                                    <i class="fa fa-check-circle"
+                                                                        [class]="getPullClock(reply['AgentID'])"
+                                                                        *ngIf="reply['AgentID']"></i>
+                                                                    {{reply['Name']}}
+                                                                </h5>
+                                                            </div>
+                                                            <div class="container-fluid">
+                                                                <p class="col-md-11 pull-left"> {{reply['Reply']}} </p>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                       
+                                    </div>
+                                
+                            </div>
+                            <!-- <div class="main-content">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-md-11" [style.float]=" isAdmin ? 'right' : 'left' ">
+                                        <div class="card">
+                                            <div class="media msg ">
+                                                <a class="pull-right" href="#">
+                                                    <img class="media-object" data-src="holder.js/64x64" alt="64x64"
+                                                        style="width: 40px; height: 40px;" src="assets/img/admin.png">
+                                                </a>
+                                                <div class="media-body">
+                                                    <small class="pull-left time"><i class="fa fa-clock-o"></i>
+                                                        12:10am</small>
+                                                    <h5 class="media-heading pull-right"><i
+                                                            class="fa fa-check-circle pull-left"></i>Naimish
+                                                        Sakhpara</h5>
+                                                    <p class="pull-left col-md-10">Location H-2, Ayojan Nagar, Near
+                                                        Gate-3, Near
+                                                        Shreyas Crossing Dharnidhar Derasar,
+                                                        Paldi, Ahmedabad 380007, Ahmedabad,
+                                                        India
+                                                        Phone 091 37 669307
+                                                        Email aapamdavad.district@gmail.com</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                                                                                         -->
+                        </div>
+                        <div class="send-wrap">
+                            <div class="main-content">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-md-12">
+
+                                            <div class="media msg" style="padding-bottom: 16px;">
+                                                <div class="col-md-11">
+                                                    <textarea  [(ngModel)]='pReply' name="replyInput" class="form-control send-message"
+                                                        style="background-color: rgb(250, 250, 250);height: 4rem;"
+                                                        placeholder="Write a reply..."></textarea>
+                                                </div>
+                                                <div class="col-md-1 p-0 pt-1" >
+                                                    <div class="btn-group">
+                                                        <button class="btn btn-primary" (click)='AddReply()' style="border-radius: 50%;background-color: #636363;border-color: #636363;">
+                                                        <span class="glyphicon glyphicon-send"></span>
+                                                    </button>
+                                                    </div>
+                                                </div>
+                                                <!-- <a href="" class="text-left btn btn-primary"
+                                                    role="button">Send Message</a> -->
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

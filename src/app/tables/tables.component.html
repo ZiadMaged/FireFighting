@@ -1,0 +1,49 @@
+
+<question-search-attributes [screenPage]='screenPage' *ngIf='Clients' (change)="GetSearchAttributes($event)">
+</question-search-attributes>
+
+<div class="main-content" *ngIf='Clients'>
+    <div class="container-fluid" >
+        <div class="row" >
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="container-fluid" id="loadPrev" [style.display]='Clients ? "none" : "" '>
+                        <div id="loader">
+                            <img src="assets/img/loader-preview.svg" alt="loading">
+                        </div>
+                    </div>
+                    <div class="header">
+                        <h3 class="title"><b>Clients</b></h3>
+                    </div>
+                    <div class="content table-responsive table-full-width">
+                          <table class="table table-hover table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th *ngFor="let cell of Headers">{{ cell }}</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngIf='Clients?.length > 0'>
+                                    <tr *ngFor="let row of Clients | paginate: { id: 'foo',
+                                    itemsPerPage: itemsPerPage,
+                                    currentPage: currentPage,
+                                    totalItems: totalItems } ; let i = index">
+                                       <td >{{ clientIndex + (i+1) }}</td>          
+                                       <td *ngFor="let cell of Headers"> {{row[cell]}}</td>
+                                        <td> 
+                                            <a routerLink="/clients" [queryParams]='queryParams'
+                                            *ngFor='let status of StatusList' 
+                                            [hidden]="status['Name'] === row['Status']" 
+                                            (click)='updateStatus(row["ClientID"],status["ID"])'> {{status['Name']}} <br></a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                          </table>
+                          
+                        </div>
+                        <pagination-controls (pageChange)="NextPage(p = $event)" directionLinks="false" id="foo">
+                        </pagination-controls>
+                </div>
+            </div>
+        </div>

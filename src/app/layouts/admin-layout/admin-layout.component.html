@@ -1,0 +1,17 @@
+<div class="wrapper" style="background-color: rgba(203,203,210,.15)">
+
+  
+      <app-sidebar></app-sidebar>
+  <!-- <div class="sidebar" data-color="black" data-image="">
+      <div class="sidebar-background" style="background-image: url(assets/img/sidebar-5.jpg)"></div>
+  </div> -->
+
+ <div style="min-height: calc(100% - 88px); padding-top: 10rem;">
+  
+      <router-outlet></router-outlet>
+      <div *ngIf="isMap('maps')">
+          <!-- <footer-cmp></footer-cmp> -->
+      </div>
+  
+  </div>
+</div>

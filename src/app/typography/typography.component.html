@@ -1,0 +1,99 @@
+
+
+<question-search-attributes  [screenPage]='screenPage' (change)="GetSearchAttributes($event)" *ngIf='Values'></question-search-attributes>
+
+
+    <div class="main-content" *ngIf='Values'>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="container-fluid" id="loadPrev" [style.display]='Values ? "none" : "" '>
+                            <div id="loader">
+                                <img src="assets/img/loader-preview.svg" alt="loading">
+                            </div>
+                        </div>
+                        <div class="header">
+                            <h3 class="title"><b>Questions</b></h3><br>
+                        </div>
+                        <div class="container-fluid">
+                            <div *ngFor="let row of Values | paginate: { id: 'foo',
+                            itemsPerPage: itemsPerPage,
+                            currentPage: currentPage,
+                            totalItems: totalItems }">
+                                <div class="card" style="background-color: rgb(250, 250, 250);">
+                                    <div class="header">
+                                        <h4 class="title" style="margin-bottom: -6px;"><b>{{ row['Client']}}</b></h4>
+                                        <small class="text-muted mt-5 ml-2">{{ row['Category']}}</small>
+                                    </div>
+
+
+                                    <div class="content">
+                                        <p>{{ row['Question']}}</p>
+
+                                        <a routerLink="/questions/{{row['QuestionID']}}/answers" class="card-text">
+
+                                            <p>
+                                                <i class="fa fa-comments-o" aria-hidden="true"></i> answers
+                                            </p>
+                                        </a>
+                                    </div>
+                                    <hr style="margin:0px;">
+                                    <div class="header" style="padding-top: 0px;">
+
+                                        <small class="text-muted"><b>Status</b> : {{ row['Status']}}</small>
+
+                                        <div class="text-right " style=" float: right;"
+                                            *ngFor='let status of StatusList'
+                                            [class.col-md-2]="status['Name'] !== row['Status']">
+                                            <small><a routerLink="{{href}}" [queryParams]='queryParams'
+                                                    [hidden]="status['Name'] === row['Status']"
+                                                    (click)='updateStatus(row["QuestionID"],status["ID"])'>{{status['Name']}}
+                                                </a></small>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <pagination-controls (pageChange)="NextPage(p = $event)" directionLinks="false" id="foo"></pagination-controls>
+                        
+                        <!-- <div class="content table-responsive table-full-width">
+                        <table class="table table-hover table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>  </th>
+                                        <th *ngFor="let cell of Headers">{{ cell }}</th>
+                                        <th>Action</th>
+                                        <th>Answers</th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngIf='Values?.length > 0'>
+                                    <tr *ngFor="let row of Values; let i = index" (change)='state()'>
+                                        <td>{{i+1}}</td>          
+                                       <td *ngFor="let cell of Headers"> {{row[cell]}} </td>                                      
+                                       <td> 
+                                           <a routerLink="/questions" 
+                                           *ngFor='let status of StatusList'
+                                             [hidden]="status['Status'] === row['Status']"
+                                             (click)='updateStatus(row["QuestionID"],status["StatusID"])'> 
+                                             {{status['Status']}} <br>
+                                            </a>
+                                        </td>
+                                        <td> 
+                                            <a routerLink="/questions/{{row['QuestionID']}}/answers"> 
+                                              View Answers <br>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            
+                    </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,61 @@
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+
+
+<div class="container-fluid" style="
+padding-bottom: 3rem;
+margin-bottom: -6.1rem;" >
+    <div class="card">
+
+        <div class="panel-heading" id="accordion">
+            <a type="button" class="col-md-12 p-0" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                <span class="glyphicon glyphicon-search" style="color: black;"></span>
+                <h5 class="title pl-3" style="display: inline-block;"><b>Filter</b></h5>
+                <div class="btn-group pull-right">
+                    <span class="glyphicon glyphicon-chevron-down"></span>
+                </div>
+            </a>
+        </div>
+
+    </div>
+</div>
+
+<div class="panel-collapse collapse" id="collapseOne">
+    <div style="padding: 30px 30px; padding-top: 1px;" *ngIf='Filters'>
+        <form (ngSubmit)='submit()'>
+            <div class="card" style="margin-bottom: -20px;">
+                <div class="container-fluid m-2">
+                    <div class="row">
+                        <div class="card col-lg-2 m-3 ml-4 p-1" *ngFor="let filterBy of Filters | keyvalue">
+                            <div >
+                                <label><b>{{filterBy.key}} :</b></label>
+                                <div class="container-fluid" *ngFor="let value of filterBy.value">
+                                    <label>
+                                        <input type="checkbox" (change)='AddQueryParam($event, filterBy.key, value.ID)'
+                                        [checked]='isChecked(value.ID,filterBy.key + "id")'>
+                                        {{value.Name}}
+                                    </label>
+                                </div> 
+                            </div>
+                        </div>                        
+                        <div class="card col-lg-3 m-3 ml-4 p-1">
+                            <label><b>Date :</b></label>
+                            <div class="container-fluid">
+                                <label for="fromDate" class=" col-lg-3 col-form-label pr-0 pl-0 mt-2">From :</label>
+                                <input [class]=' fromDateError ? "reqField" : ""' required [(ngModel)]='fromDate' name='fromDate'
+                                    class="form-control col-lg-9 pull-right" type="date" id="fromDate"
+                                    (change)="fromDateError = false">
+                            </div>
+                            <div class="container-fluid">
+                                <label for="toDate" class=" col-lg-3 col-form-label pr-0 pl-0 mt-2">To :</label>
+                                <input [class]=' toDateError ? "reqField" : ""' required [(ngModel)]='toDate' name='toDate'
+                                    class="form-control col-lg-9 pull-right" type="date" id="toDate" 
+                                    (change)="toDateError = false" >
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary col-md-2 m-2"> Search </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
