@@ -7,7 +7,7 @@ const app = express();
 app.use(express.static('./dist/light-bootstrap-dashboard-angular2-master'));
 
 app.get('/*', (req, res) =>
-    res.sendFile('index.html', {root: 'dist/light-bootstrap-dashboard-angular2-master/src'}),
+    res.sendFile('index.html', {root: 'src'}),
 );
 
 // Start the app by listening on the default Heroku port
